@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import GoogleMapReact from 'google-map-react';
 import LocationMarker from './LocationMarker';
 import LocationInfoBox from './LocationInfoBox';
+import FourOhFour from './404Notfound';
 
 const Map = ({ eventData, center, zoom }) => {
     const markers = eventData.map(ev => {
@@ -11,17 +12,17 @@ const Map = ({ eventData, center, zoom }) => {
         }
         return null;
     });
-    const [locationInfo, setLocationInfo] = useState();
+    const [locationInfo, setLocationInfo] = useState([]);
     return (
         <div className="map">
-            <GoogleMapReact
+            { null ? <GoogleMapReact
                 bootstrapURLKeys={{ key: 'AIzaSyBVG1AFgOTC7nAqOFY3Tmb1KAUqoWRzuUo' }}
                 defaultCenter={ center }
                 defaultZoom={ zoom }
             >
                 {markers}
-            </GoogleMapReact>
-            { locationInfo ? <LocationInfoBox info={locationInfo} /> : null }
+            </GoogleMapReact>  : <FourOhFour />}
+            { locationInfo.length ? <LocationInfoBox info={locationInfo} /> : null }
         </div>
     )
 }
